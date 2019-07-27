@@ -1,19 +1,10 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
 
-import { Button, Welcome } from '@storybook/react/demo';
+import Character from '../src/components/character/Character';
+import CircularStat from '../src/components/circularstat/CircularStat';
+import sampleData from '../src/sample-data.json';
 
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
-
-storiesOf('Button', module)
-  .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>
-      <span role="img" aria-label="so cool">
-        😀 😎 👍 💯
-      </span>
-    </Button>
-  ));
+storiesOf('Know your hero', module).add('Character', () => <Character character={sampleData.characters[0]} units={sampleData.units} />);
+storiesOf('Know your hero', module).add('CircularStat', () => <CircularStat title="Combat" min={0} max={100} color="#3e98c7" target={parseInt(sampleData.characters[0].powerstats.intelligence)} duration={1} />);
