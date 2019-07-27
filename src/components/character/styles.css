@@ -1,0 +1,36 @@
+/* Styles for characteer component */
+.card {
+    width: 400px;
+    margin-top: 80px;
+    box-shadow: 5px 5px 15px #ccc;
+    padding: 0 5% 5%;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.card-name {
+    margin-bottom: 0;
+}
+
+.margin-0 {
+    margin: 0;
+}
+
+.card-header img {
+    width: 80%;
+    height: 300px;
+    object-fit: cover;
+    object-position: top;
+    margin-top: -80px;
+    box-shadow: 5px 5px 8px #ccc;
+    border: 6px solid #fff;
+    transform: translateY(00%);
+    transition: transform 0.5s;
+}
+
+.card-header img:hover {
+    transform: translateY(-5%);
+    transition: transform 0.5s;
+}
