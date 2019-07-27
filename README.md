@@ -1,3 +1,8 @@
+# Know your hero
+An app that uses the Marvel API to fetch data from the Marvel characters in order to compare their info.
+
+----------------------------------------------
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
