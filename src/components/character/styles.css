@@ -26,11 +26,91 @@
     margin-top: -80px;
     box-shadow: 5px 5px 8px #ccc;
     border: 6px solid #fff;
-    transform: translateY(00%);
-    transition: transform 0.5s;
+
+    transform: translateY(0px);
+    transition-property: transform, box-shadow;
+    transition-duration: 0.5s;
 }
 
 .card-header img:hover {
-    transform: translateY(-5%);
-    transition: transform 0.5s;
+    box-shadow: 12px 12px 8px #ccc;
+    transform: translateY(-20px);
+    transition-property: transform, box-shadow;
+    transition-duration: 0.5s;
+}
+
+.accordion h2 {
+    cursor: pointer;
+    margin-bottom: 0;
+    border-bottom: 3px solid #ddd;
+}
+
+.accordion h2::after {
+    content: "+";
+    color: #aaa;
+    float: right;
+
+    animation: open-accordion 0.3s;
+}
+
+.accordion.open h2::after {
+    content: "-";
+
+    animation: close-accordion 0.3s;
+}
+
+@keyframes open-accordion {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes close-accordion {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.accordion__content {
+    overflow: hidden;
+}
+
+.single-line {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.aliases {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.aliases li {
+    display: inline-block;
+    margin: 6px 4px;
+    text-transform: lowercase;
+    background: #111;
+    border-radius: 6px;
+    padding: 4px 8px;
+    color: #eee;
+
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.aliases li:hover {
+    background: #eee;
+    color: #111;
+
+    transition: all 0.5s;
 }

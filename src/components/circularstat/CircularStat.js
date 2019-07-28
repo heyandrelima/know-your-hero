@@ -13,6 +13,8 @@ const CircularStat = (props) => {
     const [currentText, setCurrentText] = useState(min);
 
     const animatePercentage = () => {
+        setCurrentPercentage(minPercentage);
+
         setTimeout(() => {
             setCurrentPercentage(targetPercentage);
         }, 100);
@@ -20,16 +22,27 @@ const CircularStat = (props) => {
 
     const animateText = () => {
         const tick = (target - min) / (duration * 1000 / 40);
-        let currentNumber = currentText;
+        let currentNumber = min;
 
         const animInterval = setInterval(() => {
             currentNumber = parseInt(currentNumber + tick);
             setCurrentText(currentNumber)
-            if(currentNumber >= target) {
+
+            if (currentNumber >= target) {
                 setCurrentText(target);
                 clearInterval(animInterval);
             }
         }, 40);
+    };
+
+    const resetAnimation = () => {
+        setCurrentPercentage(minPercentage);
+        setCurrentText(min);
+
+        setTimeout(() => {
+            setCurrentPercentage(targetPercentage);
+            animateText();
+        }, duration * 1000);
     };
 
     useEffect(() => {
@@ -38,8 +51,11 @@ const CircularStat = (props) => {
     }, []);
 
     return (
-        <div className="circular-stat" style={{ width: '100px', textAlign: 'center' }}>
-            <h4 style={{ marginBottom: '6px' }}>{title}</h4>
+        <div onMouseEnter={() => resetAnimation()}
+            className="circular-stat"
+            style={{ width: '100px', textAlign: 'center', display: 'inline-block', marginRight: '12px' }}>
+            
+            <h4 style={{ marginBottom: '6px', marginLeft: '-4px' }}>{title}</h4>
             <Circle stroke={color} percentage={currentPercentage} text={currentText} duration={duration} />
         </div>
     );

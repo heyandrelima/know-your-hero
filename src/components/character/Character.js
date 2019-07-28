@@ -1,9 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import posed from 'react-pose';
 
 import './styles.css';
+import CircularStat from '../circularstat/CircularStat';
+
+const AccordionContent = posed.div({
+    closed: { height: 0 },
+    open: { height: 'auto' }
+});
 
 const Character = (props) => {
     const { character, units } = props;
+    const [open, setOpen] = useState('stats');
+
+    const openAccordion = (id) => {
+        if (open !== id) setOpen(id);
+        else setOpen('');
+    };
 
     useEffect(() => {
         // const options = {
@@ -30,57 +43,93 @@ const Character = (props) => {
                 <i>{character.biography.publisher}</i>
             </div>
 
-            <div>
-                <h2>Biography</h2>
+            <div className={`accordion ${open === 'biography' ? 'open' : ''}`}>
+                <h2 onClick={() => openAccordion('biography')}>Biography</h2>
 
-                <h4>Place of birth</h4>
-                <p>{character.biography['place-of-birth']}</p>
+                <AccordionContent pose={open === 'biography' ? 'open' : 'closed'} className="accordion__content">
+                    <div className="single-line">
+                        <h4>Place of birth</h4>
+                        <p>{character.biography['place-of-birth']}</p>
+                    </div>
 
-                <h4>Race</h4>
-                <p>{character.appearance.race}</p>
+                    <div className="single-line">
+                        <h4>Race</h4>
+                        <p>{character.appearance.race}</p>
+                    </div>
 
-                <h4>Gender</h4>
-                <p>{character.appearance.gender}</p>
+                    <div className="single-line">
+                        <h4>Gender</h4>
+                        <p>{character.appearance.gender}</p>
+                    </div>
 
-                <h4>Height</h4>
-                <p>
-                    {units === "imperial" ? character.appearance.height[0] : character.appearance.height[1]}
-                </p>
+                    <div className="single-line">
+                        <h4>Height</h4>
+                        <p>
+                            {units === "imperial" ? character.appearance.height[0] : character.appearance.height[1]}
+                        </p>
+                    </div>
 
-                <h4>Weight</h4>
-                <p>
-                    {units === "imperial" ? character.appearance.weight[0] : character.appearance.weight[1]}
-                </p>
+                    <div className="single-line">
+                        <h4>Weight</h4>
+                        <p>
+                            {units === "imperial" ? character.appearance.weight[0] : character.appearance.weight[1]}
+                        </p>
+                    </div>
 
-                <h4>Family</h4>
-                <p>{character.connections.relatives}</p>
+                    <h4>Family</h4>
+                    <p>{character.connections.relatives}</p>
 
-                <h4>Work</h4>
-                <p>{character.work.occupation}</p>
+                    <div className="single-line">
+                        <h4>Work</h4>
+                        <p>{character.work.occupation}</p>
+                    </div>
 
-                <h4>First appearance</h4>
-                <p>{character.biography['first-appearance']}</p>
+                    <div className="single-line">
+                        <h4>First appearance</h4>
+                        <p>{character.biography['first-appearance']}</p>
+                    </div>
 
-                <h4>Aliases</h4>
-                <ul>
-                    {character.biography.aliases.map((alias, key) => (
-                        <li key={key}>{alias}</li>
-                    ))}
-                </ul>
+                    <h4>Aliases</h4>
+                    <ul className="aliases">
+                        {character.biography.aliases.map((alias, key) => (
+                            <li key={key}>{alias}</li>
+                        ))}
+                    </ul>
 
-                <h4>Alter egos</h4>
-                <p>{character.biography['alter-egos']}</p>
+                    <h4>Alter egos</h4>
+                    <p>{character.biography['alter-egos']}</p>
+                </AccordionContent>
             </div>
 
-            <div>
-                <h2>Stats</h2>
+            <div className={`accordion ${open === 'stats' ? 'open' : ''}`}>
+                <h2 onClick={() => openAccordion('stats')}>Stats</h2>
 
-                <p>Combat: {character.powerstats.combat}</p>
-                <p>Durability: {character.powerstats.durability}</p>
-                <p>Intelligence: {character.powerstats.intelligence}</p>
-                <p>Power: {character.powerstats.power}</p>
-                <p>Speed: {character.powerstats.speed}</p>
-                <p>Strength: {character.powerstats.strength}</p>
+                <AccordionContent pose={open === 'stats' ? 'open' : 'closed'} className="accordion__content">
+                    <CircularStat
+                        title="Combat" min={0} max={100}
+                        color="#9C27B0" target={parseInt(character.powerstats.combat)}
+                        duration={1} />
+                    <CircularStat
+                        title="Durability" min={0} max={100}
+                        color="#3F51B5" target={parseInt(character.powerstats.durability)}
+                        duration={1} />
+                    <CircularStat
+                        title="Intelligence" min={0} max={100}
+                        color="#009688" target={parseInt(character.powerstats.intelligence)}
+                        duration={1} />
+                    <CircularStat
+                        title="Power" min={0} max={100}
+                        color="#607D8B" target={parseInt(character.powerstats.power)}
+                        duration={1} />
+                    <CircularStat
+                        title="Speed" min={0} max={100}
+                        color="#CDDC39" target={parseInt(character.powerstats.speed)}
+                        duration={1} />
+                    <CircularStat
+                        title="Strength" min={0} max={100}
+                        color="#F44336" target={parseInt(character.powerstats.strength)}
+                        duration={1} />
+                </AccordionContent>
             </div>
         </div>
     );
