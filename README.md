@@ -1,6 +1,13 @@
 # Know your hero
 An app that uses the SuperHero API to fetch data from comics characters in order to show and compare their info.
 
+Created using:
+- React.js
+- SuperHero API
+- Storybook
+- react-pose
+- D3.js
+
 ----------------------------------------------
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
