@@ -108,34 +108,31 @@ const Character = (props) => {
                     <CircularStat
                         title="Combat" min={0} max={100}
                         color="#9C27B0" target={parseInt(character.powerstats.combat)}
-                        duration={1} />
+                        duration={1000} />
                     <CircularStat
                         title="Durability" min={0} max={100}
                         color="#3F51B5" target={parseInt(character.powerstats.durability)}
-                        duration={1} />
+                        duration={1000} />
                     <CircularStat
                         title="Intelligence" min={0} max={100}
                         color="#009688" target={parseInt(character.powerstats.intelligence)}
-                        duration={1} />
+                        duration={1000} />
                     <CircularStat
                         title="Power" min={0} max={100}
                         color="#607D8B" target={parseInt(character.powerstats.power)}
-                        duration={1} />
+                        duration={1000} />
                     <CircularStat
                         title="Speed" min={0} max={100}
                         color="#CDDC39" target={parseInt(character.powerstats.speed)}
-                        duration={1} />
+                        duration={1000} />
                     <CircularStat
                         title="Strength" min={0} max={100}
                         color="#F44336" target={parseInt(character.powerstats.strength)}
-                        duration={1} />
+                        duration={1000} />
                 </AccordionContent>
             </div>
         </div>
     );
-};
-
-const styles = {
 };
 
 export default Character;
