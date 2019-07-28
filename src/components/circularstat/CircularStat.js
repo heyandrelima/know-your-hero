@@ -53,7 +53,7 @@ const CircularStat = (props) => {
     return (
         <div onMouseEnter={() => resetAnimation()}
             className="circular-stat"
-            style={{ width: '100px', textAlign: 'center', display: 'inline-block', marginRight: '12px' }}>
+            style={{ width: '80px', textAlign: 'center', display: 'inline-block', marginRight: '12px' }}>
             
             <h4 style={{ marginBottom: '6px', marginLeft: '-4px' }}>{title}</h4>
             <Circle stroke={color} percentage={currentPercentage} text={currentText} duration={duration} />

@@ -1,9 +1,21 @@
 /* Styles for characteer component */
 .card {
-    width: 400px;
-    margin-top: 80px;
+    width: 300px;
+    max-width: 100%;
+    margin-top: 100px;
     box-shadow: 5px 5px 15px #ccc;
     padding: 0 5% 5%;
+
+    animation: card-entering 1s;
+}
+
+@keyframes card-entering {
+    0% {
+        transform: translateY(-50%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
 }
 
 .card-header {
@@ -23,13 +35,26 @@
     height: 300px;
     object-fit: cover;
     object-position: top;
-    margin-top: -80px;
+    margin-top: -100px;
     box-shadow: 5px 5px 8px #ccc;
     border: 6px solid #fff;
 
     transform: translateY(0px);
     transition-property: transform, box-shadow;
     transition-duration: 0.5s;
+
+    animation-delay: 800ms;
+    animation: card-img-entering 1s;
+}
+
+@keyframes card-img-entering {
+    0% {
+        transform: translateY(-50%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
 }
 
 .card-header img:hover {
@@ -40,59 +65,55 @@
 }
 
 .accordion h2 {
+    position: relative;
     cursor: pointer;
     margin-bottom: 0;
-    border-bottom: 3px solid #ddd;
+    padding-bottom: 6px;
+    border-bottom: 3px solid #ccc
 }
 
 .accordion h2::after {
-    content: "+";
-    color: #aaa;
-    float: right;
+    content: " ";
+    position: absolute;
+    background: #111;
 
-    animation: open-accordion 0.3s;
+    height: 3px;
+    width: 0%;
+    transition: width 0.5s;
+
+    left: 0;
+    right: 0;
+    bottom: -3px;
+
+    margin: auto;
 }
 
-.accordion.open h2::after {
-    content: "-";
+.accordion h2:hover::after, .accordion.open h2::after {
+    content: " ";
 
-    animation: close-accordion 0.3s;
-}
-
-@keyframes open-accordion {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes close-accordion {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    width: 100%;
+    transition: width 0.5s;
 }
 
 .accordion__content {
     overflow: hidden;
 }
 
+.accordion__content h4, .accordion__content p {
+    margin: 0.6em 0;
+}
+
 .single-line {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .aliases {
     list-style: none;
     padding-inline-start: 0;
+    margin: 0.4em 0;
 }
 
 .aliases li {

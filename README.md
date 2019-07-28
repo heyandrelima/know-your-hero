@@ -1,5 +1,5 @@
 # Know your hero
-An app that uses the Marvel API to fetch data from the Marvel characters in order to compare their info.
+An app that uses the SuperHero API to fetch data from comics characters in order to show and compare their info.
 
 ----------------------------------------------
 
