@@ -93,7 +93,7 @@ const CircularStat = (props) => {
     }, []);
 
     return (
-        <div id={`stats-${id}`} class="circular-stat" ></div>
+        <div id={`stats-${id}`} className="circular-stat" ></div>
     );
 };
 

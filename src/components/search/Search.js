@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 
+import { addCharacter } from '../../redux/actions';
 import SearchResult from '../searchResult/SearchResult';
 
 // Declaring controller outside of render to prevent it to be reinitialized
 let controller = new AbortController();
 let signal = controller.signal;
 
-const Search = (props) => {
+const Search = () => {
     const [query, setQuery] = useState('');
     const [currentQuery, setCurrentQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const dispatch = useDispatch();
 
     const updateQuery = (event) => {
         controller.abort();
@@ -42,14 +45,12 @@ const Search = (props) => {
         }, 200);
     };
 
-    const selectResult = (index) => {
-        let newSearchResults = searchResults;
-        newSearchResults.splice(index, 1);
-
-        setSearchResults([...newSearchResults]);
+    const selectResult = (character) => {
+        dispatch({ type: 'ADD_CHARACTER', payload: character });
+        setCurrentQuery('');
+        setQuery('');
+        setSearchResults([]);
     };
-
-    useEffect(() => console.log(process.env), []);
 
     return (
         <div>
@@ -61,7 +62,7 @@ const Search = (props) => {
             {searchResults ?
                 searchResults.map((result, index) => {
                     return (
-                        <SearchResult onClick={() => selectResult(index)}
+                        <SearchResult onClick={() => selectResult(result)}
                             result={result} delay={100 * index} key={result.id} />
                     )
                 })
@@ -79,4 +80,4 @@ let styles = {
     }
 };
 
-export default Search;
+export default connect(null, { addCharacter })(Search);
