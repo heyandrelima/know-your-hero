@@ -18,20 +18,6 @@ const Character = (props) => {
         else setOpen('');
     };
 
-    useEffect(() => {
-        // const options = {
-        //     method: 'GET',
-        //     mode: 'cors'
-        // };
-
-        // const urlToFetch = `https://superheroapi.com/api.php/${process.env.REACT_ACCESS_TOKEN}/search/spider-man`;
-
-        // fetch(urlToFetch, options).then((response) => {
-        //     response.json().then((json) => console.log(json));
-        // });
-
-    }, []);
-
     return (
         <div className="card">
             <div className="card-header">
@@ -108,27 +94,27 @@ const Character = (props) => {
                     <CircularStat
                         title="Combat" min={0} max={100}
                         color="#9C27B0" target={parseInt(character.powerstats.combat)}
-                        duration={1000} />
+                        duration={1000} delay={0} />
                     <CircularStat
                         title="Durability" min={0} max={100}
                         color="#3F51B5" target={parseInt(character.powerstats.durability)}
-                        duration={1000} />
+                        duration={1000} delay={200} />
                     <CircularStat
                         title="Intelligence" min={0} max={100}
                         color="#009688" target={parseInt(character.powerstats.intelligence)}
-                        duration={1000} />
+                        duration={1000} delay={400} />
                     <CircularStat
                         title="Power" min={0} max={100}
                         color="#607D8B" target={parseInt(character.powerstats.power)}
-                        duration={1000} />
+                        duration={1000} delay={600} />
                     <CircularStat
                         title="Speed" min={0} max={100}
                         color="#CDDC39" target={parseInt(character.powerstats.speed)}
-                        duration={1000} />
+                        duration={1000} delay={800} />
                     <CircularStat
                         title="Strength" min={0} max={100}
                         color="#F44336" target={parseInt(character.powerstats.strength)}
-                        duration={1000} />
+                        duration={1000} delay={1000} />
                 </AccordionContent>
             </div>
         </div>

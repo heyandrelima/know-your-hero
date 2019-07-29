@@ -89,7 +89,7 @@ const Chart = (props) => {
 
                  return (progress) => {
                      const newText = parseInt(format(newNumber(progress)));
-                     d3.select(element).text(newText);
+                     return d3.select(element).text(newText);
                 }
             })
             .attr('y', datapoint => canvasHeight - (datapoint * barsScale) - 1)
