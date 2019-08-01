@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import posed from 'react-pose';
+import { useDispatch } from 'react-redux';
+
+import { REMOVE_CHARACTER, ADD_STAT } from '../../redux/actionTypes';
 
 import './styles.css';
 import CircularStat from '../circularstat/CircularStat';
@@ -12,15 +15,38 @@ const AccordionContent = posed.div({
 const Character = (props) => {
     const { character, units } = props;
     const [open, setOpen] = useState('stats');
+    const dispatch = useDispatch();
+    const circularStats = Object.keys(character.powerstats).map((key) => [key, character.powerstats[key]]);
 
     const openAccordion = (id) => {
         if (open !== id) setOpen(id);
         else setOpen('');
     };
 
+    const removeCharacter = (char) => {
+        dispatch({ type: REMOVE_CHARACTER, payload: char });
+    };
+
+    const getRandomColor = () => {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    };
+
+    useEffect(() => {
+        return () => {
+            console.log('will unmonunt');
+        };
+    }, []);
+
     return (
         <div className="card">
             <div className="card-header">
+                <span className="remove-card"
+                    onClick={() => removeCharacter(character)}>&times;</span>
                 <img src={character.image.url} alt={character.name} />
 
                 <h1 className="card-name">{character.name}</h1>
@@ -91,30 +117,15 @@ const Character = (props) => {
                 <h2 onClick={() => openAccordion('stats')}>Stats</h2>
 
                 <AccordionContent pose={open === 'stats' ? 'open' : 'closed'} className="accordion__content">
-                    <CircularStat
-                        title="Combat" min={0} max={100}
-                        color="#9C27B0" target={parseInt(character.powerstats.combat)}
-                        duration={1000} delay={0} />
-                    <CircularStat
-                        title="Durability" min={0} max={100}
-                        color="#3F51B5" target={parseInt(character.powerstats.durability)}
-                        duration={1000} delay={200} />
-                    <CircularStat
-                        title="Intelligence" min={0} max={100}
-                        color="#009688" target={parseInt(character.powerstats.intelligence)}
-                        duration={1000} delay={400} />
-                    <CircularStat
-                        title="Power" min={0} max={100}
-                        color="#607D8B" target={parseInt(character.powerstats.power)}
-                        duration={1000} delay={600} />
-                    <CircularStat
-                        title="Speed" min={0} max={100}
-                        color="#CDDC39" target={parseInt(character.powerstats.speed)}
-                        duration={1000} delay={800} />
-                    <CircularStat
-                        title="Strength" min={0} max={100}
-                        color="#F44336" target={parseInt(character.powerstats.strength)}
-                        duration={1000} delay={1000} />
+                    {circularStats.map((stat, index) => {
+                        const color = getRandomColor();
+                        return (
+                            <CircularStat key={index}
+                                title={stat[0]} min={0} max={100}
+                                color={color} target={stat[1]}
+                                duration={1000} delay={index * 100} character={character} />
+                        )
+                    })}
                 </AccordionContent>
             </div>
         </div>

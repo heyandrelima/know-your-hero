@@ -5,7 +5,6 @@ import Character from '../character/Character';
 
 const CharactersContainer = () => {
     const characters = useSelector(state => state.characters.characters);
-    console.log(characters);
 
     return (
         <div style={{ width: "100%" }}>

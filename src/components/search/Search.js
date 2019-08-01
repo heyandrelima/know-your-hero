@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { addCharacter } from '../../redux/actions';
+import { ADD_CHARACTER } from '../../redux/actionTypes';
 import SearchResult from '../searchResult/SearchResult';
 
 // Declaring controller outside of render to prevent it to be reinitialized
@@ -46,7 +46,7 @@ const Search = () => {
     };
 
     const selectResult = (character) => {
-        dispatch({ type: 'ADD_CHARACTER', payload: character });
+        dispatch({ type: ADD_CHARACTER, payload: character });
         setCurrentQuery('');
         setQuery('');
         setSearchResults([]);
@@ -59,25 +59,35 @@ const Search = () => {
                 value={query}
                 onChange={updateQuery} onKeyUp={updateQuery} />
 
-            {searchResults ?
-                searchResults.map((result, index) => {
-                    return (
-                        <SearchResult onClick={() => selectResult(result)}
-                            result={result} delay={100 * index} key={result.id} />
-                    )
-                })
-                : ''}
+            <div style={styles.resultsHolder}>
+                {searchResults ?
+                    searchResults.map((result, index) => {
+                        return (
+                            <SearchResult onClick={() => selectResult(result)}
+                                result={result} delay={100 * index} key={result.id} />
+                        )
+                    })
+                    : ''}
+            </div>
         </div>
     );
 };
 
 let styles = {
     input: {
-        width: "calc(100% - 1em)",
-        fontSize: "1.4em",
-        padding: "0.2em 0.4em",
-        border: "1px solid #ccc"
+        width: 'calc(100% - 1em)',
+        fontSize: '1.4em',
+        padding: '0.2em 0.4em',
+        border: '1px solid #ccc',
+    },
+    resultsHolder: {
+        position: 'absolute',
+        width: '100%',
+        maxHeight: '50vh',
+        overflowY: 'auto',
+        backgroundColor: '#fff',
+        zIndex: 1,
     }
 };
 
-export default connect(null, { addCharacter })(Search);
+export default Search;

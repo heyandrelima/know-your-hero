@@ -2,11 +2,12 @@
 An app that uses the SuperHero API to fetch data from comics characters in order to show and compare their info.
 
 Created using:
-- React.js
+- React.js (with hooks)
 - SuperHero API
 - Storybook
 - react-pose
 - D3.js
+- Redux (with hooks)
 
 ----------------------------------------------
 

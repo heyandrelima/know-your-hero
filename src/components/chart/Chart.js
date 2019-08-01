@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import * as d3 from 'd3';
-import { svg } from 'popmotion';
 import { format } from 'util';
 
 const Chart = (props) => {
-    const { duration } = props;
-    const { value, data } = props.data;
+    const { name, data, duration, id } = props;
 
     const drawBarChart = () => {
         let allValues = [];
         data.forEach((item, index) => {
-            allValues.push(item.value);
+            allValues.push(parseFloat(item.value));
         });
 
         // Defining values
         const barsWidth = 10;
-        const barsMargin = 10;
+        const barsMargin = 5;
         const barsScale = 0.5;
         const canvasWidth = allValues.length * (barsWidth + barsMargin) + barsMargin;
-        const canvasHeight = parseInt(d3.max(allValues) * barsScale) * 1.25;
-        const canvas = d3.select('.canvas');
+        const canvasHeight = parseInt(d3.max(allValues) * barsScale) * 1.3;
+        const canvas = d3.select(`#stats-${id}`);
+        canvas.html('');
 
         // Title of the chart
-        canvas.append('h4').text(() => value)
-            .style('text-transform', 'capitalize').style('text-align', 'center');
+        canvas.append('h4').text(() => name)
+            .style('text-transform', 'capitalize').style('font-size', '1.4em')
+            .style('text-align', 'center');
 
         // Creating canvas
         const svgCanvas = canvas.append('svg')
-            .attr('preserveAspectRatio', 'xMinYMin meet')
+            .attr('preserveAspectRatio', 'xMaxYMin meet')
             .attr('viewBox', `0 0 ${canvasWidth} ${canvasHeight}`)
-            .style('overflow', 'visible');
+            .style('overflow', 'visible').attr('stroke', 1);
 
         // Group for the bars
         svgCanvas.append('g').attr('class', 'inside-rect')
@@ -39,7 +39,7 @@ const Chart = (props) => {
         svgCanvas.append('g').attr('class', 'labels-group').style('transform', 'translate(0, 100%)')
             .selectAll('text').data(data).enter()
             .append('text').text(datapoint => datapoint.character)
-            .style('font-size', '15%')
+            .style('font-size', '10%')
             .style('font-weight', (datapoint, iteration) => {
                 if (datapoint.value === d3.max(allValues)) return 'bold';
             })
@@ -94,14 +94,19 @@ const Chart = (props) => {
             })
             .attr('y', datapoint => canvasHeight - (datapoint * barsScale) - 1)
             .delay((datapoint, iteration) => iteration * 200);
+
+        console.log('finished drawing');
     };
 
     useEffect(() => {
         drawBarChart();
     }, []);
 
+    // Redraw on every render in case there's new data
+    drawBarChart();
+
     return (
-        <div className="canvas"></div>
+        <div id={`stats-${id}`} style={{ width: "300px", marginBottom: "1em", marginTop: "1em" }} ></div>
     );
 };
 

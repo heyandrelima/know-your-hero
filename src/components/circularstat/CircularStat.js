@@ -1,28 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
+import { useDispatch } from 'react-redux';
+import { ADD_STAT } from '../../redux/actionTypes';
+
 const CircularStat = (props) => {
-    const { title, min, max, color, target, duration } = props;
-    const id = props.id || Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+    const { title, min, max, color, target, duration, character } = props;
+    const id = props.id || title + character.id;
     const delay = props.delay || 0;
     const rest = max - target;
     const backgroundColor = '#ccc';
 
+    const data = [target, rest];
+    const canvasWidth = 200;
+    const canvasHeight = 200;
+    const canvasMargin = 10;
+    const pieWidth = 20;
+    const radius = Math.min(canvasWidth, canvasHeight) / 2 - canvasMargin;
+    const innerRadius = radius - pieWidth;
+
+    const [active, setActive] = useState(false);
+
+    const dispatch = useDispatch();
+
     const drawStat = () => {
-        const data = [target, rest];
-        const canvasWidth = 200;
-        const canvasHeight = 200;
-        const canvasMargin = 10;
-        const pieWidth = 20;
-        const radius = Math.min(canvasWidth, canvasHeight) / 2 - canvasMargin;
-        const innerRadius = radius - pieWidth;
         const canvas = d3.select(`#stats-${id}`);
 
-        // Creating title
-        canvas.append('h4').text(title).style('text-align', 'center');
-
         // Creating svg canvas
-        const svgCanvas = canvas.append('svg')
+        const svgCanvas = canvas.select('svg')
             .attr('preserveAspectRatio', 'xMinYMin meet')
             .attr('viewBox', `0 0 ${canvasWidth} ${canvasHeight}`);
         const gBackground = svgCanvas.append('g').attr('transform', `translate(${canvasWidth / 2}, ${canvasHeight / 2})`);
@@ -88,12 +93,54 @@ const CircularStat = (props) => {
             .delay(delay);
     };
 
+    const cleanStat = () => {
+        const canvas = d3.select(`#stats-${id}`);
+        const svgCanvas = canvas.select('svg').html('');
+        const canvasGroupOne = svgCanvas.append('g');
+
+        // Draw X with SVG and animations
+        canvasGroupOne.attr('transform', `rotate(45, ${canvasWidth / 2}, 5)`)
+            .append('rect').attr('x', 0).attr('y', 0)
+            .attr('width', canvasWidth).attr('height', 10).attr('fill', backgroundColor);
+    };
+
+    const addStat = () => {
+        const payload = {
+            name: title,
+            data: {
+                character: character.name,
+                "full-name": character.biography['full-name'],
+                value: target,
+                color
+            }
+        };
+
+        dispatch({ type: ADD_STAT, payload });
+        setActive(true);
+    };
+
+    const removeStat = () => {
+        console.log('remove stat');
+    };
+
+    const handleClick = () => {
+        if (!active) addStat();
+        else removeStat();
+    };
+
     useEffect(() => {
         drawStat();
     }, []);
 
+    if (active) cleanStat();
+    else drawStat();
+
     return (
-        <div id={`stats-${id}`} className="circular-stat" ></div>
+        <div id={`stats-${id}`} style={{ cursor: 'pointer' }}
+            className="circular-stat" onClick={handleClick} >
+            <h4 style={{ textAlign: 'center', textTransform: 'capitalize' }}>{title}</h4>
+            <svg></svg>
+        </div>
     );
 };
 

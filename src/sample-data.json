@@ -161,52 +161,26 @@
             }
         }
     ],
-    "comparison": [
-        {
-            "value": "combat",
-            "data": [
-                {
-                    "character": "Spider-Man",
-                    "full-name": "Peter Parker",
-                    "value": "85",
-                    "color": "#B71C1C"
-                },
-                {
-                    "character": "Batman",
-                    "full-name": "Bruce Wayne",
-                    "value": "95",
-                    "color": "#880E4F"
-                },
-                {
-                    "character": "Superman",
-                    "full-name": "Clark Kent",
-                    "value": "99",
-                    "color": "#4A148C"
-                }
-            ]
-        },
-        {
-            "value": "durability",
-            "data": [
-                {
-                    "character": "Spider-Man",
-                    "full-name": "Peter Parker",
-                    "value": "85",
-                    "color": "#B71C1C"
-                },
-                {
-                    "character": "Batman",
-                    "full-name": "Bruce Wayne",
-                    "value": "95",
-                    "color": "#880E4F"
-                },
-                {
-                    "character": "Superman",
-                    "full-name": "Clark Kent",
-                    "value": "99",
-                    "color": "#4A148C"
-                }
-            ]
-        }
-    ]
+    "comparison": {
+        "combat": [
+            {
+                "character": "Spider-Man",
+                "full-name": "Peter Parker",
+                "value": "85",
+                "color": "#B71C1C"
+            },
+            {
+                "character": "Batman",
+                "full-name": "Bruce Wayne",
+                "value": "95",
+                "color": "#880E4F"
+            },
+            {
+                "character": "Superman",
+                "full-name": "Clark Kent",
+                "value": "99",
+                "color": "#4A148C"
+            }
+        ]
+    }
 }
