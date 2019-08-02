@@ -23,8 +23,8 @@ const stats = (state = initialState, action) => {
             const currentStats = state.stats;
             let index = 0;
 
-            currentStats[key].forEach((stat, index) => {
-                if (stat.id == id) index = index;
+            currentStats[key].forEach((stat, iteration) => {
+                if (stat.id === id) index = iteration;
             });
             currentStats[key].splice(index, 1);
 
@@ -38,20 +38,15 @@ const stats = (state = initialState, action) => {
             const id = action.payload.id;
             const currentStats = state.stats;
             const allKeys = Object.keys(currentStats);
-            let newStats = {};
+            let newStats = currentStats;
 
             allKeys.forEach(currentKey => {
-                currentStats[currentKey].forEach(stat => {
-                    if (stat.id !== id) {
-                        newStats[currentKey] ? newStats[currentKey].push(stat)
-                            : newStats[currentKey] = [stat];
-                    }
+                newStats[currentKey] = currentStats[currentKey].filter(stat => {
+                    return stat.id !== id;
                 });
             });
 
-            console.log(newStats);
-
-            return { stats: newStats };
+            return { stats: [...newStats] };
         }
         default: return state;
     }

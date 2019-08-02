@@ -10,7 +10,6 @@ const StatsContainer = () => {
 
     store.subscribe(() => {
         const stats = state.stats.stats;
-        console.log(state);
         const statsArray = Object.keys(stats).map((key) => [key, stats[key]]);
 
         setStatsState([...statsArray]);
