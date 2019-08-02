@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/know-your-hero/static/css/main.ba2e6a5c.chunk.css",
+    "main.js": "/know-your-hero/static/js/main.84c60288.chunk.js",
+    "main.js.map": "/know-your-hero/static/js/main.84c60288.chunk.js.map",
+    "runtime~main.js": "/know-your-hero/static/js/runtime~main.10620f7e.js",
+    "runtime~main.js.map": "/know-your-hero/static/js/runtime~main.10620f7e.js.map",
+    "static/js/2.bb760fec.chunk.js": "/know-your-hero/static/js/2.bb760fec.chunk.js",
+    "static/js/2.bb760fec.chunk.js.map": "/know-your-hero/static/js/2.bb760fec.chunk.js.map",
+    "index.html": "/know-your-hero/index.html",
+    "precache-manifest.302ba7755f890e77433c74799ce3699d.js": "/know-your-hero/precache-manifest.302ba7755f890e77433c74799ce3699d.js",
+    "service-worker.js": "/know-your-hero/service-worker.js",
+    "static/css/main.ba2e6a5c.chunk.css.map": "/know-your-hero/static/css/main.ba2e6a5c.chunk.css.map"
+  }
+}
