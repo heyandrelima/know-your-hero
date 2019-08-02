@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import posed from 'react-pose';
 import { useDispatch } from 'react-redux';
 
-import { REMOVE_CHARACTER, ADD_STAT } from '../../redux/actionTypes';
+import { REMOVE_CHARACTER, REMOVE_CHAR_STATS } from '../../redux/actionTypes';
 
 import './styles.css';
 import CircularStat from '../circularstat/CircularStat';
@@ -25,6 +25,7 @@ const Character = (props) => {
 
     const removeCharacter = (char) => {
         dispatch({ type: REMOVE_CHARACTER, payload: char });
+        dispatch({ type: REMOVE_CHAR_STATS, payload: { id: character.id }})
     };
 
     const getRandomColor = () => {

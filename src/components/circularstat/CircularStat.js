@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
 import { useDispatch } from 'react-redux';
-import { ADD_STAT } from '../../redux/actionTypes';
+import { ADD_STAT, REMOVE_STAT } from '../../redux/actionTypes';
 
 const CircularStat = (props) => {
     const { title, min, max, color, target, duration, character } = props;
@@ -27,7 +27,7 @@ const CircularStat = (props) => {
         const canvas = d3.select(`#stats-${id}`);
 
         // Creating svg canvas
-        const svgCanvas = canvas.select('svg')
+        const svgCanvas = canvas.select('svg').html('')
             .attr('preserveAspectRatio', 'xMinYMin meet')
             .attr('viewBox', `0 0 ${canvasWidth} ${canvasHeight}`);
         const gBackground = svgCanvas.append('g').attr('transform', `translate(${canvasWidth / 2}, ${canvasHeight / 2})`);
@@ -93,15 +93,12 @@ const CircularStat = (props) => {
             .delay(delay);
     };
 
-    const cleanStat = () => {
+    const hightlightNumber = () => {
         const canvas = d3.select(`#stats-${id}`);
-        const svgCanvas = canvas.select('svg').html('');
-        const canvasGroupOne = svgCanvas.append('g');
 
-        // Draw X with SVG and animations
-        canvasGroupOne.attr('transform', `rotate(45, ${canvasWidth / 2}, 5)`)
-            .append('rect').attr('x', 0).attr('y', 0)
-            .attr('width', canvasWidth).attr('height', 10).attr('fill', backgroundColor);
+        // Creating svg canvas
+        const svgCanvas = canvas.select('svg');
+        svgCanvas.select('text').style('font-weight', 'bold');
     };
 
     const addStat = () => {
@@ -111,7 +108,8 @@ const CircularStat = (props) => {
                 character: character.name,
                 "full-name": character.biography['full-name'],
                 value: target,
-                color
+                color,
+                id: character.id
             }
         };
 
@@ -120,7 +118,18 @@ const CircularStat = (props) => {
     };
 
     const removeStat = () => {
-        console.log('remove stat');
+        const canvas = d3.select(`#stats-${id}`);
+        const svgCanvas = canvas.select('svg');
+        svgCanvas.select('text').style('font-weight', 'normal');
+
+        dispatch({
+            type: REMOVE_STAT,
+            payload: {
+                key: title,
+                id: character.id
+            }
+        });
+        setActive(false);
     };
 
     const handleClick = () => {
@@ -132,8 +141,7 @@ const CircularStat = (props) => {
         drawStat();
     }, []);
 
-    if (active) cleanStat();
-    else drawStat();
+    if (active) hightlightNumber();
 
     return (
         <div id={`stats-${id}`} style={{ cursor: 'pointer' }}

@@ -1,3 +1,5 @@
 export const ADD_CHARACTER = "ADD_CHARACTER";
 export const REMOVE_CHARACTER = "REMOVE_CHARACTER";
 export const ADD_STAT = "ADD_STAT";
+export const REMOVE_STAT = "REMOVE_STAT";
+export const REMOVE_CHAR_STATS = "REMOVE_CHAR_STATS";

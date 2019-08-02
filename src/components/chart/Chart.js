@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import * as d3 from 'd3';
 import { format } from 'util';
 
@@ -94,8 +94,6 @@ const Chart = (props) => {
             })
             .attr('y', datapoint => canvasHeight - (datapoint * barsScale) - 1)
             .delay((datapoint, iteration) => iteration * 200);
-
-        console.log('finished drawing');
     };
 
     useEffect(() => {
